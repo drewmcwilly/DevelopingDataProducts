@@ -132,7 +132,7 @@ summary(df2)
 
 The plot below displays Averge speed, change in Altitude, change in Temperature, Change in Humidity for each minute of the run.
 
-```{r pressure, echo=FALSE, warning=FALSE}
+```{r pressure, echo=FALSE, warning=FALSE, message=FALSE}
     avg_Grp<-as.data.frame(df2%>% group_by(min)%>% 
                                summarize(avg_Speed=mean(RunSpeed_MPH), avg_temp=mean(TemperatureF), avg_alt=mean(Feet_Altitude),avg_humid=mean(Humidity)))
     def_temp<-avg_Grp[1,"avg_temp"]
