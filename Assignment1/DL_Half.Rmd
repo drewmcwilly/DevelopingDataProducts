@@ -2,7 +2,9 @@
 title: "Delaware & Lehigh Heritage Half Marathon"
 author: "Drew McWilliams"
 date: "January 2, 2017"
-output: html_document
+output:
+    html_document: 
+      keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -154,4 +156,5 @@ interactive_map(mean(df2$Latitude), mean(df2$Longitude))
 
 
 Code and RMarkdown for this doc available:
-https://www.google.com/
+https://github.com/drewmcwilly/DevelopingDataProducts/tree/master/Assignment1
+
