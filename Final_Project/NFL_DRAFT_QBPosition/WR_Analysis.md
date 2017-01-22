@@ -82,11 +82,19 @@ height, weight, fortyyd, vertical, broad, arms, hands, and college
                  
 ```
 
-Slide With Plot
+Draftees By College
+========================================================
+In the data that I was able to obtain, the 15 Colleges below had the greatest number of Wide Receivers that were drafted.
+
+
+![plot of chunk unnamed-chunk-2](WR_Analysis-figure/unnamed-chunk-2-1.png)
+
+Thank you
 ========================================================
 
+Code for project located here:
+https://github.com/drewmcwilly/DevelopingDataProducts/tree/master/Final_Project/NFL_DRAFT_QBPosition
 
+Shiny App located here:
+https://drewmcwilly.shinyapps.io/NFL_DRAFT_QBPosition/
 
-```
-Error in eval(expr, envir, enclos) : could not find function "group_by"
-```

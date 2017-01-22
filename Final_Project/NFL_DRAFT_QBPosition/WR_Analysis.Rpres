@@ -41,14 +41,29 @@ height, weight, fortyyd, vertical, broad, arms, hands, and college
 summary(NFL_DF)
 ```
 
-Slide With Plot
+Draftees By College
 ========================================================
+In the data that I was able to obtain, the 15 Colleges below had the greatest number of Wide Receivers that were drafted.
+
 
 ```{r, echo=FALSE}
-WR<-group_by(NFL_DF, college, round)
-WR$name<-as.character(WR$name)
-WR1<-count(WR,"college")
-WR1<-head(arrange(WR1, desc(freq)),15)
-WR<-count(WR,c("college","round"))
 
+WR1<-count(NFL_DF,"college")
+WR1<-head(arrange(WR1, desc(freq)),15)
+WR<-count(NFL_DF,c("college","round"))
+WR<-subset(WR, WR$college %in% WR1$college)
+
+
+p1<-  ggplot(data = WR, aes(x = college, y = freq, fill = round))+ggtitle("Number of Draftees by College")+xlab('College') + ylab("COUNT")+geom_bar(stat="identity")+ coord_flip()
+p1
 ```
+
+Thank you
+========================================================
+
+Code for project located here:
+https://github.com/drewmcwilly/DevelopingDataProducts/tree/master/Final_Project/NFL_DRAFT_QBPosition
+
+Shiny App located here:
+https://drewmcwilly.shinyapps.io/NFL_DRAFT_QBPosition/
+

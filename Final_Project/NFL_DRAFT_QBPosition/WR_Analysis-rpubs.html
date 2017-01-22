@@ -749,7 +749,7 @@ hljs.initHighlightingOnLoad();
   <div class="slides">
 
 <section data-state="section" data-transition="linear" data-transition-speed="default">
-<h1>Wide Receiver Draft Analysis</h1><p></p>
+<h1>Wide Receiver Draft Analysis</h1><p>Drew McWilliams<br/>1&#x2F;22&#x2F;2017</p>
 
 <div class="slideContent" >
 
@@ -757,41 +757,102 @@ hljs.initHighlightingOnLoad();
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>First Slide</h3>
+<h3>NFL Draft</h3>
 <div class="slideContent" >
-<p>For more details on authoring R presentations please visit <a href="https://support.rstudio.com/hc/en-us/articles/200486468">https://support.rstudio.com/hc/en-us/articles/200486468</a>.</p>
+<p>This Presenation was assembled as part of the final project in Coursera&#39;s Developing Data Products class.  </p>
 
-<ul>
-<li>Bullet 1</li>
-<li>Bullet 2</li>
-<li>Bullet 3</li>
-</ul>
+<p>By using NFL Combine stats from 1999 through 2014 along with the draft results, this application aims to predict the round that a Wide Receiver would be selected.</p>
+
+<p>The project used the data set located here: <a href="http://nflsavant.com/dump/combine.csv?year=2015">http://nflsavant.com/dump/combine.csv?year=2015</a>.</p>
 
 </div>
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Slide With Code</h3>
+<h3>Data Set Overview</h3>
 <div class="slideContent" >
-<pre><code class="r">summary(cars)
+<p>Below should give a general overview.  The most consistently populated columns that had an impact on the draft round were:
+height, weight, fortyyd, vertical, broad, arms, hands, and college</p>
+
+<pre><code>      year                 name       firstname       lastname  
+ Min.   :1999   Ben Obomanu  :  2   David  :  8   Johnson : 11  
+ 1st Qu.:2003   Mike Williams:  2   Mike   :  8   Williams: 10  
+ Median :2007   Steve Smith  :  2   Chris  :  7   Robinson:  7  
+ Mean   :2007   A.J. Green   :  1   Brandon:  6   Jones   :  6  
+ 3rd Qu.:2011   A.J. Jenkins :  1   Andre  :  5   Brown   :  5  
+ Max.   :2014   Aaron Lockett:  1   Kevin  :  5   Jackson :  5  
+                (Other)      :388   (Other):358   (Other) :353  
+    position   heightfeet  heightinches heightinchestotal     weight     
+ WR     :397       :  0   1.0000 :108   Min.   :65.00     Min.   :155.0  
+        :  0    Jr.:  0   2.0000 : 67   1st Qu.:71.00     1st Qu.:191.0  
+ C      :  0   5   :124   11.0000: 54   Median :73.00     Median :200.0  
+ CB     :  0   6   :273   3.0000 : 41   Mean   :72.78     Mean   :200.6  
+ DE     :  0              10.0000: 33   3rd Qu.:74.00     3rd Qu.:211.0  
+ DT     :  0              9.0000 : 22   Max.   :78.00     Max.   :247.0  
+ (Other):  0              (Other): 72                                    
+      arms           hands           fortyyd         twentyyd     
+ Min.   : 0.00   Min.   : 0.000   Min.   :0.000   Min.   :0.0000  
+ 1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:4.420   1st Qu.:0.0000  
+ Median : 0.00   Median : 0.000   Median :4.480   Median :0.0000  
+ Mean   :12.76   Mean   : 3.760   Mean   :4.462   Mean   :0.6197  
+ 3rd Qu.:31.50   3rd Qu.: 9.125   3rd Qu.:4.550   3rd Qu.:0.0000  
+ Max.   :35.88   Max.   :10.750   Max.   :4.790   Max.   :2.7700  
+
+     tenyd           twentyss       threecone        vertical   
+ Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   : 0.0  
+ 1st Qu.:0.0000   1st Qu.:3.860   1st Qu.:0.000   1st Qu.:33.5  
+ Median :0.0000   Median :4.140   Median :0.000   Median :35.5  
+ Mean   :0.4853   Mean   :3.191   Mean   :2.939   Mean   :33.5  
+ 3rd Qu.:1.5000   3rd Qu.:4.250   3rd Qu.:6.840   3rd Qu.:37.5  
+ Max.   :1.6900   Max.   :4.770   Max.   :7.390   Max.   :45.0  
+
+     broad           bench            round                college   
+ Min.   :  0.0   Min.   : 0.000   Min.   :1.000   Florida      : 12  
+ 1st Qu.:115.0   1st Qu.: 0.000   1st Qu.:2.000   Miami (FL)   : 10  
+ Median :120.0   Median : 0.000   Median :4.000   USC          : 10  
+ Mean   :105.3   Mean   : 6.207   Mean   :4.035   LSU          :  9  
+ 3rd Qu.:124.0   3rd Qu.:14.000   3rd Qu.:6.000   Ohio State   :  9  
+ Max.   :139.0   Max.   :27.000   Max.   :8.000   Florida State:  8  
+                                                  (Other)      :339  
+      pick       pickround     picktotal       wonderlic      
+ 0      : 32   27     : 16   Min.   :  2.0   Min.   : 0.0000  
+ 14(78) :  4   17     : 15   1st Qu.: 60.0   1st Qu.: 0.0000  
+ 18(82) :  4   7      : 15   Median :114.0   Median : 0.0000  
+ 8(8)   :  4   12     : 14   Mean   :119.9   Mean   : 0.2746  
+ 12(44) :  3   10     : 13   3rd Qu.:178.0   3rd Qu.: 0.0000  
+ 13(13) :  3   14     : 13   Max.   :262.0   Max.   :25.0000  
+ (Other):347   (Other):311                                    
+    nflgrade     
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.0000  
+ Mean   :0.4403  
+ 3rd Qu.:0.0000  
+ Max.   :7.0000  
+
 </code></pre>
 
-<pre><code>     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  
-</code></pre>
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Draftees By College</h3>
+<div class="mediaInline slideContent" >
+<p>In the data that I was able to obtain, the 15 Colleges below had the greatest number of Wide Receivers that were drafted.</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2"/></p>
 
 </div>
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Slide With Plot</h3>
-<div class="mediaOnly slideContent" >
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAaVBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6ADo6AGY6OpA6kNtmAABmADpmAGZmOgBmZjpmtv+QOgCQOjqQOmaQkDqQtpCQ2/+2ZgC2/7a2///bkDrb25Db////tmb/25D//7b//9v///9e3+C1AAAACXBIWXMAAAsSAAALEgHS3X78AAAKX0lEQVR4nO3dDXfayBlAYdxt7GZx0uLdFhoavv7/jyyS8SYBbAQzL5qZe5/TU7b1YY6yN9JIAnkmOyFNxt4AjcPwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FAp4ScqWWD4hPcqmuGhDA+VHH791M8Yf/t2w3s1ntTw25dZ/7r69P3q92pEqeE3X7/98nrNezUi93io5Dl+8+wcXyPP6qEMD5Xjcu5h7sldYS7eks1ycrd9mRq+KJNdatmBl3OLx5/CD/wYQHHuEP5wObf87bN7fDnuEH5/OTftXpan13OGH0/8HB/0XkUzPJThoQwPlXw593y4dvPkri7Je3x39+bW92o86Yf6zZf5ze/VaJzjoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8VHJ4lxitU2p4FxysVGp4lxitlHs8VPIc7xKjdfKsHsrwUF7OQXlyBxVwOecSozVwj4fycg7Ks3oow0MZHsrwUMmXcy4xWqfkPd4lRuuUfqh3idEqOcdDGR7K8FCGhzI8lOGhDA9leCjDN+ny958M36LJLrWs4atkeKgB33U1fIsMD+WhHsrwVF7O6R2GhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZHuL4E3rDM5x8J8fwDIYfy8i/29fwIxnw9cfgDXCOH8Xo4Y8Z/j4MT1Xa7+83PJThoQwPlRzeVajqlBreNWkqlRreRYUr5R4PlTzHN74KVWmX39l4Vv+h4m64ZRMQvqWVJg3/rv3l3OOy2UO94d+z/WO+Wz7u+//e5sldGweuM3Jczi2nXs5Vxz0eKsccP213jm+Xl3NQhocyPJThoQx/J6XdEDD8fRR3C9Dw92F4KMNTOcerCIaHMjyU4aEMD2V4KMNDGR7K8FCGhzI8lOGhDN8k15ZlGvAhsOFbZHgow1M5x+sdhh/NuF/GMvxYRv76peHHYngow1M5x2sEhq9NpgOF4SuT69TA8JUxPJThqZzjlcLwBbnnlf2g8K+/r/TMby1NGVrH7novb0D4w1IEk8npIhQpQ+tYaeGv39cHDa1j5YUPGVonipvjd8tP35eTySzr0BrVsEP9l/n+P+vPnty1Y+gcv9/nz4d3pck6DTzUTx7mq7OHetedq1TqyZ0rTVYqNbx7fKWG3MD5+t93V5N0pclaeR3/oZG/ERkoILwrTdbgmnv1Zw/166fZ9uXsffwW/oWhw+8tpvv/6paXO9Gd3C1m7a4718aB64zUj2X3/2e35qCXc7UZFH770u/xZz+W3e/uq/1PV6eHA8OXbNihvpvFJ+eO9HuLfv4/80PDl8zLOSjDQxkeyvBQhr+TITcEyvvqVcTQLENuAfplywYZHsrwVM7xKoLhr1Xe53U3bZHhr1TeJ/S3bZHhr2T41KErZfjUoWvlHJ84tEZl+IJ4Hc/knTsow0MZnso5vnrlXfMdM3yE8u7ynDB8BMNDGZ7KOV6FMnxBvJxj8gYOlOGhDE/lHK9whv/Jfa++XVu2FPe93zby3T3D/2D4wT8Oe+8oDD/4x2HvHYdz/NAfh71X0QwPZXgow0MZHsrwUIaHMvydlPYtPMPfR3Hfu00O7xKjgzQX3gUHh2kuvEuMDtTaHO8eX6nkOb7xJUaHOLMzl7Z/n/KsPtmZ6bu4Gf1UQPiWlhgdghx+/fnMWoSF/8mzYYb/YOHZwv/k+TDn+M3zPjl6j69ThkP95vnT/wxfmyxz/Prp3Arjhi+Zl3NQhocyPJThPxZ4XeYDFQULvBPjI1QlM3z+oatg+PxD18E5PvvQGlWj4W/bm8r/aCWfNsPfNn9W8GFqPoZPfVelDJ/6rkq1Gd45/qJGw+sSw6fL9tUrf6VpVbJ92fKu5xiGT2b4jO+tieEzvrcqzvH53qtohocyPJThoQwPZXgow0Nhwp9eI5M+iztFCX96Vwz16fspw0MZHooS3jn+SKPhs31I0uzflzbDZ/tYtN0ZwvAfvsvw+YeOZPiL2gzvHH9Ro+F1CTh8I7vujbjhW5msb2R4KMNDccM7xyf8OOy9ilZ6ePZuGajw8PCJOFBy+NiVJg0fJTV88Lpzho+SGj56pUnn+CCF7/GKkjzH17vS5I0Hk0aOQYWf1Qe68fShlbOOgPCVrDRp+IQf7/rLuYd5jcuIGz7hx68nd9uXaYXhneMTfvy2py8eKwzPlulybvnb6VqT9X3njiTD5dy0e1kWtahwKxNxoDYv5wx/ESa8B/9ftRn+NLPHgCP1hb/xWYmd4X9RXXj4fZdsKOGd449gwutX1YV3182jvvDKAhyefejghoefLBgeyvBQ3PDO8Qk/DnuvohkeyvBQhocyPJThoQwPdbfwgVfN7AvyG90rfOB9MvgtuBsZHsrwUM7xUJ7VQxkeyvBQhocyPJThoQwPZXgow0MZHsrwUIaHKj28H8AEKTy8H7lGMTyU4aEKD+8cH6X08ArSwlevdIMGvmypWxgeyvBQzvFQntVDJYePXU1aUVLDu7ZspVLDn1lNupKVJuHc46GS5/h6V5Nm86weyvBQhocyPJThoSLDq2Rx4S//zahz7DqHvnJsw7cytOGhQxseOrThoUMbHjq04aFDlxRe5TI8lOGhDA9leCjDQxkeyvBQhocyPFRc+OXk7Jfxc1h//tZ/3//0GY88Q0dsevcI4ixoqw9jX7XZceEXs6iRV90fr3vCZ/kYMnTEpm++zHfrf8xDtvow9nWbHRZ++8c8aOTFw3/2u2X3LF+/e+YfOmLTV13txSxkqw9jX7fZYeH7J6+CdvruX9369+/9X/WAoaM2fb+5QVvdj33dZoeF7449UXt9V6d7iDMofNCmb1+mUVvdj33dZsee1QfN88F7fC/7pm+ep7uore7H7g3e7GrDh8yWgeHXT92AMVv9OnZv/PDdQW37Z9zlXHdwy39W/9csknvTD21Ctvow9nWbHXod/xB0Yn+H6/jcm77sH26ZhWz129hXbbZ37qAMD2V4KMNDGR7K8FCGhzI8lOGhDA9leCjDQxkeyvBQhocyPJThoQwPZXgow0MZ/h1vq2+1yvDvMHyrVv0zxZuv/+6/k7x57p+T/fHy938avkndMy3Lx33iT99X+9aL1wcdfrysop74LAQ3/OsTbJvnWfekYfe/9n8V3l6+fvNQ36z1U3eM7/svZv0jxg/zw0v/OE3cL3YoAjf8rn/arAvf7fGvSyb/9OIe36juEcMu/PNj/4+L6fGLc3yjFq9n9V/+9XZW/9PL9sWz+saF/F6SGhje8CIxPJThoQwPZXgow0MZHsrwUIaHMjyU4aEMD2V4KMNDGR7K8FD/B+hzWTv8ozDoAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-2"/></p>
+<h3>Thank you</h3>
+<div class="slideContent" >
+<p>Code for project located here:
+<a href="https://github.com/drewmcwilly/DevelopingDataProducts/tree/master/Final_Project/NFL_DRAFT_QBPosition">https://github.com/drewmcwilly/DevelopingDataProducts/tree/master/Final_Project/NFL_DRAFT_QBPosition</a></p>
+
+<p>Shiny App located here:
+<a href="https://drewmcwilly.shinyapps.io/NFL_DRAFT_QBPosition/">https://drewmcwilly.shinyapps.io/NFL_DRAFT_QBPosition/</a></p>
 
 </div>
 
