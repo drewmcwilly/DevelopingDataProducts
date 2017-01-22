@@ -1,0 +1,10 @@
+name: NFL_DRAFT_QBPosition
+account: drewmcwilly
+server: shinyapps.io
+appId: 152524
+bundleId: 687354
+url: https://drewmcwilly.shinyapps.io/NFL_DRAFT_QBPosition/
+when: 1485107951.52539
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: draftmodel.rda

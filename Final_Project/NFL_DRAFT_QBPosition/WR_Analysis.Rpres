@@ -1,0 +1,54 @@
+Wide Receiver Draft Analysis
+========================================================
+author: Drew McWilliams
+date: 1/22/2017
+autosize: true
+
+NFL Draft
+========================================================
+
+This Presenation was assembled as part of the final project in Coursera's Developing Data Products class.  
+
+By using NFL Combine stats from 1999 through 2014 along with the draft results, this application aims to predict the round that a Wide Receiver would be selected.
+
+
+
+
+The project used the data set located here: http://nflsavant.com/dump/combine.csv?year=2015.
+
+Data Set Overview
+========================================================
+```{r loaddata, echo=FALSE}
+library(ggplot2)
+library(plyr)
+
+url<- "http://nflsavant.com/dump/combine.csv?year=2015"
+NFL_DF<-read.csv(url)
+NFL_DF<-subset(NFL_DF, position=="WR")
+# NFL_DF<-subset(NFL_DF, position %in% c("C","CB","DE","DT","FB","FS","ILB","K","LS","NT","OC","OG","OLB","OT","P","QB","RB","SS","TE","WR"))
+# NFL_DF<-subset(NFL_DF, position %in% c("C","CB","DE","DT","FB","FS","ILB","K","LS","NT","OC","OG","OLB","OT","P","QB","RB","TE","WR"))
+#NFL_DF[which(NFL_DF$picktotal==0),"picktotal"]<-300
+
+#filter out undrafted
+NFL_DF<-subset(NFL_DF,picktotal!=0)
+NFL_DF<-subset(NFL_DF, round!=0)
+
+```
+Below should give a general overview.  The most consistently populated columns that had an impact on the draft round were:
+height, weight, fortyyd, vertical, broad, arms, hands, and college
+
+```{r echo=FALSE}
+summary(NFL_DF)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+WR<-group_by(NFL_DF, college, round)
+WR$name<-as.character(WR$name)
+WR1<-count(WR,"college")
+WR1<-head(arrange(WR1, desc(freq)),15)
+WR<-count(WR,c("college","round"))
+
+```
